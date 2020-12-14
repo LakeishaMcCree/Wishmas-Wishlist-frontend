@@ -17,11 +17,27 @@ function createFormHandler(e) {
     const storeInput = document.querySelector('#input-store').value
     const urlInput = document.querySelector('#input-url').value
     const imageInput = document.querySelector('#input-image').value
-    postFetch(nameInput, priceInput, numberInput, storeInput, urlInput, imageInput)
+    postList(nameInput, priceInput, numberInput, storeInput, urlInput, imageInput)
 }
 
-function postFetch(name, price, number, store, url, image) {
-    console.log
+function postList(name, price, number, store, url, image) {
+    fetch("http://localhost:3000/lists", {
+        //POST Request
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            name: name,
+            price: price,
+            number: number,
+            store: store, 
+            url: url, 
+            image: image
+        })
+    })
+    .then(resp => resp.json())
+    .then(list => {
+        console.log(list);
+    })
 }
 
 
