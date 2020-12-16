@@ -10,11 +10,30 @@ class API {
             })
         })
     }
+//posts form to the dom and grabs the attribute inputs, clears the form after submission
 
-    static addItem(e) {
+    static createList(e) {
+        e.preventdefault()
+        let list = {
+            'name': e.target.name.value,
+        };
+        fetch(LIST_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(list)
+        })
+        .then(resp => resp.json())
+        .then(lists => {
+            const{ id, name } = lists
+            new List(id, name)
+        })
+    }
+    static createItems(e) {
         e.preventDefault()
         //capture form data
-        let data = {'item': {
+        let item = { 
             'name': e.target.name.value,
             'price': e.target.price.value,
             'rating': e.target.rating.value,
@@ -22,8 +41,15 @@ class API {
             'link': e.target.link.value,
             'image': e.target.image.value,
             'list_id': e.this.list_id
-        }
-    };
+        };
+        fetch(ITEM_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(item)
+        })
+    }
     //write the fetch to send it to the back end
 
     fetch('http://localhost:3000/lists/${id}/items', {

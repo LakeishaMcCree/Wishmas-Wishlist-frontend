@@ -1,4 +1,6 @@
-
+const BASE_URL = "http://localhost:3000"
+const LIST_URL = `${BASE_URL}/lists`
+const ITEM_URL = `${BASE_URL}/items`
 
 document.addEventListener("DOMContentLoaded", function() {
    //fetch and load the lists
@@ -6,8 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
     API.addItem()
 
     //event listener and handler for the create list form
-    //const createListForm = document.querySelector("#create-list-form")
-    //createListForm.addEventListener("submit", (e) => createFormHandler(e))   
+    document.getElementById('new-list-form').addEventListener('submit', )
 
 })
 
