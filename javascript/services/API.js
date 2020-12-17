@@ -1,6 +1,7 @@
 class API {
+    //class level method that is fetching all of our lists then creating a new list object then creating a new list object for all of our lists.
     // static (class level) function that is going to be a fetch request to the back end to the index that will load in all my lists
-    static getLists() {
+    static getList() {
         fetch("http://localhost:3000/lists") //read fetch
         .then(resp => resp.json())
         .then(lists => {
@@ -17,7 +18,7 @@ class API {
         let list = {
             'name': e.target.name.value,
         };
-        fetch(LIST_URL, {
+        fetch(LIST_URL, { //post fetch
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -30,6 +31,18 @@ class API {
             new List(id, name)
         })
     }
+
+    static getItem() {
+        fetch('http://localhost:3000/lists/:list_id/items') //read fetch
+        .then(resp => resp.json())
+        .then(items => {
+            items.forEach(item => {
+                const { id, item_name, item_price, item_rating, item_store, link, image } = item
+                new Item(id, item_name, item_price, item_rating, item_store, link, image )
+            })
+        })
+    }
+
     static createItems(e) {
         e.preventDefault()
         //capture form data
@@ -42,74 +55,26 @@ class API {
             'image': e.target.image.value,
             'list_id': e.this.list_id
         };
-        fetch(ITEM_URL, {
+        fetch(ITEM_URL, { //post fetch
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(item)
         })
-    }
     //write the fetch to send it to the back end
-
-    fetch('http://localhost:3000/lists/${id}/items', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data) 
-        })
         //grab the fetch response
         .then(resp => resp.json())
         .then(item => {
             const { name, price, rating, store, link, image, list_id } = item
             new Item(name, price, rating, store, link, image, list_id)
-            document.getElementById('list-form').reset()
-
-        //create a new item object
-        //clear form
-
-    //static createItems(e) {
-        //let id = e.target.dataset.id
-        //fetch("http://localhost:3000/lists/${id}/items")
-        //.then(resp => resp.json())
-        //.then(items => {
-            //items.forEach(list => {
-                //const{id, name, price, rating, store, link, image, list_id} = item
-                //new Item(id, name, price, rating, store, link, image, list_id)
-            //})
-       // })
-   // }
-
-    
-        
-        
+            document.getElementById('list-form').addEventListener('submit', API.createitems)
+            document.getElementById('new-list-form').reset()
+        })
+        .catch(error => {
+            error.message;
         })
     }
 }
-//class level method that is fetching all of our lists then creating a new list object then creating a new list object for all of our lists.
-
-//function postItem(name, price, number, store, url, image) {
-  //  const listData = {name, price, number, store, url, image}
-    //fetch("http://localhost:3000/lists", {
-        //POST Request
-      //  method: "POST",
-        //headers: {"Content-Type": "application/json"},
-        //body: JSON.stringify(bodyData)
-    //})
-    //.then(resp => resp.json())
-    //.then(list => {
-      //  const listData = list.data
-        // render JSON response
-
-//*function createFormHandler(e) {
-    //e.preventDefault()
-    //const nameInput = document.querySelector('#input-name').value
-   // const priceInput = document.querySelector('#input-price').value
-   // const numberInput = document.querySelector('#input-number').value
-   // const storeInput = document.querySelector('#input-store').value
-   // const urlInput = document.querySelector('#input-url').value
-   // const imageInput = document.querySelector('#input-image').value
-   // postItem(nameInput, priceInput, numberInput, storeInput, urlInput, imageInput)
-//}
-
-
-   // })
+        //create a new item object
+        //clear form
