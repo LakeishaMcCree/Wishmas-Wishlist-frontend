@@ -4,7 +4,7 @@ class API {
     static getList() {
         fetch("http://localhost:3000/lists") //read fetch
         .then(resp => resp.json())
-        .then(lists => {
+        .then(lists=> {
             lists.forEach(list => {
                 const{id, name, list_notes} = list 
                 new List(id, name, list_notes)
@@ -13,12 +13,12 @@ class API {
     }
 //posts form to the dom and grabs the attribute inputs, clears the form after submission
 
-    static createList(e) {
-        e.preventdefault()
+    createList(e) {
         let list = {
             'name': e.target.name.value,
+            'list_notes': e.target.list_notes.value  
         };
-        fetch(LIST_URL, { //post fetch
+        fetch(baseURL, { //post fetch
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ class API {
     }
 
     static getItem() {
-        fetch('http://localhost:3000/lists/:list_id/items') //read fetch
+        fetch('${baseURL}/lists/:list_id/items') //read fetch
         .then(resp => resp.json())
         .then(items => {
             items.forEach(item => {
@@ -43,8 +43,7 @@ class API {
         })
     }
 
-    static createItems(e) {
-        e.preventDefault()
+     createItems(e) {
         //capture form data
         let item = { 
             'name': e.target.name.value,
@@ -78,3 +77,5 @@ class API {
 }
         //create a new item object
         //clear form
+    
+    
