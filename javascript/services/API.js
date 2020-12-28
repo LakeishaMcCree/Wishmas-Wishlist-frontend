@@ -4,78 +4,58 @@ class API {
     static getList() {
         fetch("http://localhost:3000/lists") //read fetch
         .then(resp => resp.json())
-        .then(lists=> {
+        .then(lists => {
+            
             lists.forEach(list => {
-                const{id, name, list_notes} = list 
+                const id = list.id 
+                const name = list.name 
+                const list_notes = list.list_notes
                 new List(id, name, list_notes)
+                //debugger
             })
         })
     }
 //posts form to the dom and grabs the attribute inputs, clears the form after submission
-
-    createList(e) {
-        let list = {
-            'name': e.target.name.value,
-            'list_notes': e.target.list_notes.value  
-        };
-        fetch(baseURL, { //post fetch
+//takes an event, used as callback for the submit of the form
+    static createList(e) {
+        const listForm = document.getElementById("new-list-form")
+        listForm.addEventListener("submit", function(e){
+            e.preventDefault()
+            const listData = listInfo(e)
+            fetch("http://localhost:3000/lists", { //post fetch
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(list)
+            body: JSON.stringify(listData)
         })
-        .then(resp => resp.json())
+        .then(resp => resp.json()) //how info travels across the net
         .then(lists => {
-            const{ id, name } = lists
-            new List(id, name)
-        })
-    }
-
-    static getItem() {
-        fetch('${baseURL}/lists/:list_id/items') //read fetch
-        .then(resp => resp.json())
-        .then(items => {
-            items.forEach(item => {
-                const { id, item_name, item_price, item_rating, item_store, link, image } = item
-                new Item(id, item_name, item_price, item_rating, item_store, link, image )
+            const{ id, name, list_notes} = lists
+            new List(id, name, list_notes)
+            document.getElementById("new-list-form").reset()
             })
         })
+    
+     
+
+    
+        function listInfo(e) {
+            return {
+                'name': e.target.name.value,
+                'list_notes': e.target.list_notes.value,
+                'item_name': e.target.item_name.value, 
+                'item_price': e.target.item_price.value,
+                'item_rating': e.target.item_rating.value,
+                'item_store': e.target.item_store.value, 
+                'url': e.target.url.value,
+                'img': e.target.img.value
+            }
+        }
     }
 
-     createItems(e) {
-        //capture form data
-        let item = { 
-            'name': e.target.name.value,
-            'price': e.target.price.value,
-            'rating': e.target.rating.value,
-            'store': e.target.store.value,
-            'link': e.target.link.value,
-            'image': e.target.image.value,
-            'list_id': e.this.list_id
-        };
-        fetch(ITEM_URL, { //post fetch
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(item)
-        })
-    //write the fetch to send it to the back end
-        //grab the fetch response
-        .then(resp => resp.json())
-        .then(item => {
-            const { name, price, rating, store, link, image, list_id } = item
-            new Item(name, price, rating, store, link, image, list_id)
-            document.getElementById('list-form').addEventListener('submit', API.createitems)
-            document.getElementById('new-list-form').reset()
-        })
-        .catch(error => {
-            error.message;
-        })
-    }
+       
+
 }
         //create a new item object
         //clear form
-    
-    
