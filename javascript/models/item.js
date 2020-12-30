@@ -14,17 +14,17 @@ class Item {
 
     itemHTML() {
         return `
-            <p> ${this.item_name} </p>
-            <p> ${this.item_price} </p>
-            <p> ${this.item_rating} </p>
-            <p> ${this.item_store} </p>
-            <p> ${this.url} </p>
-            <p> ${this.img} </p>
+            <p> Name: ${this.item_name} </p>
+            <p> Price: ${this.item_price} </p>
+            <p> Rating: ${this.item_rating} </p>
+            <p> Store: ${this.item_store} </p>
+            <p> Website Link: ${this.url} </p>
+            <p> Picture Link: ${this.img} </p>
         `
     }
     
     renderItems() {
-        let listItems = document.getElementById(`item-container-${this.list_id}`)
+        let listItems = document.getElementById(`item-container ${this.list_id}`)
         let itemCard = document.createElement('div')
         itemCard.classList.add('item-card')
         itemCard.dataset.id = this.id

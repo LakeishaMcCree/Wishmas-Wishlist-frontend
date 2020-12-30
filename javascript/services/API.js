@@ -18,7 +18,7 @@ class API {
 //posts form to the dom and grabs the attribute inputs, clears the form after submission
 //takes an event, used as callback for the submit of the form
     static createList(e) {
-        const listForm = document.getElementById("new-list-form")
+        const listForm = document.getElementById("list-form")
         listForm.addEventListener("submit", function(e){
             e.preventDefault()
             const listData = listInfo(e)

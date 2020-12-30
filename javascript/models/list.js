@@ -1,5 +1,5 @@
 class List {
-    constructor (id, name, list_notes, item_name, item_price, item_rating, item_store, url, img, list_id) {
+    constructor (id, name, list_notes) {
         this.id = id
         this.name = name
         this.list_notes = list_notes
@@ -10,19 +10,27 @@ class List {
 
     listHTML() {
         return `
-        <h3 class="headline">${this.name}</h3>
-        <p>Notes: ${this.list_notes}</p>
-        <div id="item-container ${this.id}"></div>
-        
-        <button type="button" class="item-button" data-id=${this.id}>Edit!</button>
-        <button type="button" class="item-button" data-id=${this.id}>Delete!</button>
+        <div class="row">
+            <div class="col s12 m7">
+                <div class="card horizontal blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">${this.name}</span>
+                        <p> About the Child: ${this.list_notes}</p>
+                    <div id="item-container ${this.id}"></div>
+                </div>
+                <div class="card-action">
+                    <button type="button" class="item-button" data-id=${this.id}>Edit!</button>
+                    <button type="button" class="item-button" data-id=${this.id}>Delete!</button>
+                 </div>
+            </div>
+        </div>
         `
     }
     //render method that will create a div, append it to the page, add relevant classes and IDs. 
     //
     //dataset.id- refers to an id, creating and displaying my list
     postList() {
-        const listContainer = document.getElementById('#add-item-form');
+        const listContainer = document.getElementById("add-item-form");
         const listCard = document.createElement('div');
         listCard.dataset.id = this.id 
         listCard.id = this.id
