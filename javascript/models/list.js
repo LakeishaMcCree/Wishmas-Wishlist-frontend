@@ -54,13 +54,13 @@ class List {
         })
     }
 
-    deleteList(e){
+    deleteList(){
         const id = document.getElementById(`${this.id}`)
-        fetch(`http://localhost:3000/lists/${id}`, {
+        fetch(`http://localhost:3000/lists/${this.id}`, {
             method: 'DELETE'
         })
         .then(() => { //removing the child of the parent div, by its numbered ID corresponding with what's in the database
-            document.getElementById('wishlist-container').removeChild(id)
+            document.getElementById("wishlist-container").removeChild(id)
         })
     }
         
