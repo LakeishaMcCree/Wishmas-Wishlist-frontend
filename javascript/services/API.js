@@ -5,60 +5,36 @@ class API {
         fetch("http://localhost:3000/lists") //read fetch
         .then(resp => resp.json())
         .then(lists => {
-            
             lists.forEach(list => {
-                const id = list.id 
-                const name = list.name 
-                const list_notes = list.list_notes
+                const{id, name, list_notes} = list 
                 new List(id, name, list_notes)
-                //debugger
             })
         })
     }
-//posts form to the dom and grabs the attribute inputs, clears the form after submission
-//takes an event, used as callback for the submit of the form
+    //posts form to the dom and grabs the attribute inputs, clears the form after submission
+    //takes an event, used as callback for the submit of the form
 
         static loadFormListener(){
-            const listForm = document.getElementById("list-form")
-           listForm.addEventListener("submit", function(e){
+            const listForm = document.getElementById("add-item-form")
+            listForm.addEventListener("submit", function(e){
                e.preventDefault()
                const postResults = listInfo(e)
-               let options
-               let url
-               if(listForm.dataset.action === "create"){
-                   options = {
-                       method: 'POST',
-                       headers: {
-                           'Content-Type': 'application/json'
-                       },
-                       body: JSON.stringify(postResults)
-                   }
-                   url = "http://localhost:3000/lists"
-               } else if (listForm.dataset.action === "update"){
-                   options = {
-                       method: 'PATCH',
-                       headers: {
-                           'Content-Type': 'application/json'
-                       },
-                       body: JSON.stringify(postResults)
-                   }
-                   url = `http://localhost:3000/lists/${postList.dataset.id}`
-               }
-               fetch (url, options)
-               .then(resp => resp.json())
-               .then(data => {
-                   if (!data.errors) {
-                       getList()
-                       clearForm()
-                   } else {
-                       throw new Error( `${data.errors}`)
-                   }
-               })
-               .catch(alert)
+                fetch("http://localhost:3000/lists", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(postResults)
            })
-       }
+           .then(resp => resp.json())
+           .then(data => {
+               const{id, name, list_notes} = data
+               new List(id, name, list_notes)
+               clearForm()
+           })
+       })
 
-       static listInfo(e) {
+       function listInfo(e) {
         return {
             'name': e.target.name.value,
             'list_notes': e.target.list_notes.value,
@@ -71,18 +47,10 @@ class API {
         }
     }
 
-    static clearForm() {
-        listForm.dataset.action = "create"
-        delete listForm.dataset.id
-         e.target.name.value = ""
-         e.target.list_notes.value = ""
-            e.target.item_name.value = "" 
-            e.target.item_price.value = ""
-            e.target.item_rating.value = ""
-            e.target.item_store.value = "" 
-            e.target.url.value = ""
-            e.target.img.value = ""
+    function clearForm() {
+         document.querySelector('#name').value = ""
+         document.querySelector('#list_notes').value = ""
+         document.querySelector('#add-item-form').value = ""
+        }
     }
 }
-        //create a new item object
-        //clear form

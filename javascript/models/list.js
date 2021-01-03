@@ -3,7 +3,7 @@ class List {
         this.id = id;
         this.name = name;
         this.list_notes = list_notes;
-        this.postList()
+        this.displayList()
         this.fetchItems()
         //render the instance to the page
     }
@@ -12,18 +12,20 @@ class List {
         return `
         <div class="row">
             <div class="col s12 m7">
-            <form id="wishmas-wishlist">
-                <div class="card horizontal blue-grey darken-1">
+                 <form id="wishmas-wishlist">
+                    <div class="card horizontal blue-grey darken-1">
                     <div class="card-content white-text">
                         <span class="card-title">${this.name}</span>
                         <p> About the Child: ${this.list_notes}</p>
-                    <div id="item-container ${this.id}"></div>
+                    </div>
+                    <div class="card-action">
+                        <button type="button" class="item-button" data-id=${this.id}>Edit!</button>
+                        <button type="button" class="item-button" data-id=${this.id}>Delete!</button>
+                        <div id="item-container-${this.id}"></div>
+                    </div>
+                </form><br>
+                    
                 </div>
-                </form>
-                <div class="card-action">
-                    <button type="button" class="item-button" data-id=${this.id}>Edit!</button>
-                    <button type="button" class="item-button" data-id=${this.id}>Delete!</button>
-                 </div>
             </div>
         </div>
         `
@@ -31,7 +33,7 @@ class List {
     //render method that will create a div, append it to the page, add relevant classes and IDs. 
     //
     //dataset.id- refers to an id, creating and displaying my list
-    postList() {
+    displayList() {
         const listContainer = document.getElementById("list-spot")
         const listCard = document.createElement('div')
         listCard.dataset.id = this.id 
