@@ -57,17 +57,34 @@ class List {
             })
         })
     }
-
-    deleteList(){
-        const id = document.getElementById(`${this.id}`)
-        fetch(`http://localhost:3000/lists/${this.id}`, {
-            method: 'DELETE'
-        })
-        .then(() => {
-            document.getElementById('list-spot').removeChild(id)
-        })
        
-            
+    eventDelegation(){
+        const listSpot = document.querySelector("#wishmas-wishlist")
+            listSpot.addEventListener("click", function(e){
+                if (e.target.className == "edit"){
+                    const [name, list_notes, item_name, item_price, item_rating, item_store, url, img] = e.target.parentElement.querySelectorAll("span")
+                    formName.value = name.innerText
+                    formListNotes.value = list_notes.innerText
+                    formItemName.value = item_name.innerText
+                    formItemPrice.value = item_price.innerText
+                    formItemRating.value = item_rating.innerText
+                    formItemStore.value = item_store.innerText
+                    formUrl.value = url.innerText
+                    formImg.value = img.innerText
+                    listForm.dataset.id = e.target.parentElement.id 
+                    document.getElementsByClassName("btn") [0].value = "Edit List"
+                    listForm.dataset.action = "update"
+                } else if (e.target.className == "delete"){
+                    console.log("you clicked delete")
+                    const listID = e.target.parentElement.id
+                    deleteList(listID)
+                }
+               
+            })
     }
-        
+
+    
+     
+
 }
+    

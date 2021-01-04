@@ -2,5 +2,14 @@ document.addEventListener("DOMContentLoaded", function(){
    //fetch and load the lists
     API.getList()
     API.loadFormListener()
-
+    //eventDelegation()
 })
+ const formName = document.getElementById("name")
+ const formListNotes = document.getElementById("list_notes")
+ const formItemName = document.getElementById("item_name")
+ const formItemPrice = document.getElementById("item_price")
+ const formItemRating = document.getElementById("item_rating")
+ const formItemStore = document.getElementById("item_store")
+ const formUrl = document.getElementById("url")
+ const formImg = document.getElementById("img")
+ const listForm = document.getElementById("add-item-form")

@@ -15,7 +15,7 @@ class API {
     //takes an event, used as callback for the submit of the form
 
         static loadFormListener(){
-            const listForm = document.getElementById("add-item-form")
+            //const listForm = document.getElementById("add-item-form")
             listForm.addEventListener("submit", function(e){
                e.preventDefault()
                const postResults = listInfo(e)
@@ -36,21 +36,28 @@ class API {
 
        function listInfo(e) {
         return {
-            'name': e.target.name.value,
-            'list_notes': e.target.list_notes.value,
-            'item_name': e.target.item_name.value, 
-            'item_price': e.target.item_price.value,
-            'item_rating': e.target.item_rating.value,
-            'item_store': e.target.item_store.value, 
-            'url': e.target.url.value,
-            'img': e.target.img.value
+        name: formName.value, 
+        list_notes: formListNotes.value, 
+        item_name: formItemName.value, 
+        item_price: formItemPrice.value, 
+        item_rating: formItemRating.value, 
+        item_store: formItemStore.value,
+        url: formUrl.value, 
+        img: formImg.value    
         }
     }
 
-    function clearForm() {
-         document.querySelector('#name').value = ""
-         document.querySelector('#list_notes').value = ""
-         document.querySelector('#add-item-form').value = ""
-        }
+     function clearForm() {
+        listForm.dataset.action = "create"
+        delete listForm.dataset.id
+        formName.value = ""
+        formListNotes.value = ""
+        formItemName.value = ""
+        formItemPrice.value = ""
+        formItemRating.value = ""
+        formItemStore.value = ""
+        formUrl.value = ""
+        formImg.value = ""
+       }
     }
 }
