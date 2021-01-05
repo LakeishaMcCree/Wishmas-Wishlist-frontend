@@ -8,31 +8,31 @@ class Item {
         this.url = url
         this.img = img
         this.list_id = list_id
-        this.renderItem()
+        this.displayItem()
         //call render here
     }
 
     itemHTML() {
         return `
-        <div class="row">
-            <div class="col s12 m7">
-                <p> Name: ${this.item_name} </p>
-                <p> Price: ${this.item_price} </p>
-                <p> Rating: ${this.item_rating} </p>
-                <p> Store: ${this.item_store} </p>
-                <p> Website Link: ${this.url} </p>
-                <p> Picture Link: ${this.img} </p>
-            </div>
-        </div>   
+            <div class="row">
+                <div class="col s12 m7">
+                    <p> Gift: ${this.item_name} </p>
+                    <p> Price: ${this.item_price} </p>
+                    <p> Rating: ${this.item_rating} </p>
+                    <p> Store: ${this.item_store} </p>
+                    <p> Website Link: ${this.url} </p>
+                    <p> Picture Link: ${this.img} </p>
+                </div>
+            </div> 
+         
         `
             
     }
     
-    renderItem() {
+    displayItem() {
         let itemContainer = document.getElementById(`item-container-${this.list_id}`)
         let itemCard = document.createElement('div')
         itemCard.classList.add = "item-card"
-        itemCard.dataset.id = this.id
         itemCard.id = this.id
         itemCard.innerHTML += this.itemHTML()
         itemContainer.appendChild(itemCard)

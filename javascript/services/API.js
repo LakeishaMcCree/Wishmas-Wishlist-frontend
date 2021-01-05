@@ -1,7 +1,8 @@
 class API {
     //class level method that is fetching all of our lists then creating a new list object then creating a new list object for all of our lists.
     // static (class level) function that is going to be a fetch request to the back end to the index that will load in all my lists
-    static getList() {
+ 
+    static loadLists() {
         fetch("http://localhost:3000/lists") //read fetch
         .then(resp => resp.json())
         .then(lists => {
@@ -15,49 +16,48 @@ class API {
     //takes an event, used as callback for the submit of the form
 
         static loadFormListener(){
-            //const listForm = document.getElementById("add-item-form")
-            listForm.addEventListener("submit", function(e){
-               e.preventDefault()
-               const postResults = listInfo(e)
+            const listForm = document.getElementById("add-item-form")
+            listForm.addEventListener("submit", function(e) {
+                e.preventDefault()
+                const listData = listInfo(e)
                 fetch("http://localhost:3000/lists", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(postResults)
-           })
-           .then(resp => resp.json())
-           .then(data => {
-               const{id, name, list_notes} = data
-               new List(id, name, list_notes)
-               clearForm()
-           })
-       })
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(listData)
+                })
+                .then(resp => resp.json())
+                .then(data => {
+                    const{id, name, list_notes} = data
+                    new List(id, name, list_notes)
+                    clearForm()
+                })
+            })
+       }
 
-       function listInfo(e) {
+       static listInfo(e) {
         return {
-        name: formName.value, 
-        list_notes: formListNotes.value, 
-        item_name: formItemName.value, 
-        item_price: formItemPrice.value, 
-        item_rating: formItemRating.value, 
-        item_store: formItemStore.value,
-        url: formUrl.value, 
-        img: formImg.value    
+        name: e.target.querySelector('#name').value, 
+        list_notes: e.target.querySelector('#list_notes').value, 
+        item_name: e.target.querySelector('#item_name').value, 
+        item_price: e.target.querySelector('#item_price').value, 
+        item_rating: e.target.querySelector('#item_rating').value, 
+        item_store: e.target.querySelector('#item_store').value,
+        url: e.target.querySelector('#url').value, 
+        img: e.target.querySelector('#img').value    
         }
     }
 
-     function clearForm() {
-        listForm.dataset.action = "create"
-        delete listForm.dataset.id
-        formName.value = ""
-        formListNotes.value = ""
-        formItemName.value = ""
-        formItemPrice.value = ""
-        formItemRating.value = ""
-        formItemStore.value = ""
-        formUrl.value = ""
-        formImg.value = ""
+     static clearForm() {
+        document.querySelector('#name').value = ""
+        document.querySelector('#list_notes').value = ""
+        document.querySelector('#item_name').value = ""
+        document.querySelector('#item_price').value = ""
+        document.querySelector('#item_rating').value = ""
+        document.querySelector('#item_store').value = ""
+        document.querySelector('#url').value = ""
+        document.querySelector('#img').value = ""
        }
-    }
+    
 }
