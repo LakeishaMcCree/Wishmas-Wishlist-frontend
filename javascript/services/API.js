@@ -17,6 +17,7 @@ class API {
 
         static loadFormListener(){
             const listForm = document.getElementById("add-item-form")
+            
             listForm.addEventListener("submit", function(e) {
                 e.preventDefault()
                 const listData = listInfo(e)
@@ -29,35 +30,35 @@ class API {
                 })
                 .then(resp => resp.json())
                 .then(data => {
-                    const{id, name, list_notes} = data
-                    new List(id, name, list_notes)
+                    const{id, name, list_notes, item_name, item_price, item_rating, item_store, url, img, list_id} = data
+                    new List(id, name, list_notes, item_name, item_price, item_rating, item_store, url, img, list_id)
                     clearForm()
                 })
             })
        }
 
-       static listInfo(e) {
-        return {
-        name: e.target.querySelector('#name').value, 
-        list_notes: e.target.querySelector('#list_notes').value, 
-        item_name: e.target.querySelector('#item_name').value, 
-        item_price: e.target.querySelector('#item_price').value, 
-        item_rating: e.target.querySelector('#item_rating').value, 
-        item_store: e.target.querySelector('#item_store').value,
-        url: e.target.querySelector('#url').value, 
-        img: e.target.querySelector('#img').value    
-        }
-    }
-
-     static clearForm() {
-        document.querySelector('#name').value = ""
-        document.querySelector('#list_notes').value = ""
-        document.querySelector('#item_name').value = ""
-        document.querySelector('#item_price').value = ""
-        document.querySelector('#item_rating').value = ""
-        document.querySelector('#item_store').value = ""
-        document.querySelector('#url').value = ""
-        document.querySelector('#img').value = ""
-       }
     
+
+     eventDelegation(){
+        const listSpot = document.querySelector("#wishmas-wishlist")
+            listSpot.addEventListener("click", function(e){
+                if (e.target.className == "edit"){
+                    const [name, list_notes, item_name, item_price, item_rating, item_store, url, img] = e.target.parentElement.querySelectorAll("span")
+                    formName.value = name.innerText
+                    formListNotes.value = list_notes.innerText
+                    formItemName.value = item_name.innerText
+                    formItemPrice.value = item_price.innerText
+                    formItemRating.value = item_rating.innerText
+                    formItemStore.value = item_store.innerText
+                    formUrl.value = url.innerText
+                    formImg.value = img.innerText
+                    listForm.dataset.id = e.target.parentElement.id 
+                    document.getElementsByClassName("btn") [0].value = "Edit"
+                    listForm.dataset.action = "update"
+                } else if (e.target.className == "delete"){
+                    const listID = e.target.parentElement.id
+                    deleteList(listID)
+                }
+            })
+    }
 }

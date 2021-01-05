@@ -12,19 +12,14 @@ class Item {
         //call render here
     }
 
-    itemHTML() {
+   itemHTML() {
         return `
-            <div class="row">
-                <div class="col s12 m7">
-                    <p> Gift: ${this.item_name} </p>
-                    <p> Price: ${this.item_price} </p>
-                    <p> Rating: ${this.item_rating} </p>
-                    <p> Store: ${this.item_store} </p>
-                    <p> Website Link: ${this.url} </p>
-                    <p> Picture Link: ${this.img} </p>
-                </div>
-            </div> 
-         
+            <p> Gift: ${this.item_name} </p>
+            <p> Price: ${this.item_price} </p>
+            <p> Rating: ${this.item_rating} </p>
+            <p> Store: ${this.item_store} </p><br>
+            <p> Website Link: ${this.url} </p><br>
+            <p> Picture Link: ${this.img} </p>      
         `
             
     }
@@ -32,7 +27,6 @@ class Item {
     displayItem() {
         let itemContainer = document.getElementById(`item-container-${this.list_id}`)
         let itemCard = document.createElement('div')
-        itemCard.classList.add = "item-card"
         itemCard.id = this.id
         itemCard.innerHTML += this.itemHTML()
         itemContainer.appendChild(itemCard)
