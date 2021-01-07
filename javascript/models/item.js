@@ -8,7 +8,6 @@ class Item {
         this.link = link
         this.image = image
         this.list_id = list_id
-        //this.loadFormItems()
         this.displayItem()
         
         //this.renderItems()
@@ -16,6 +15,18 @@ class Item {
     }
 
    
+    displayItem() {
+
+        let itemContainer = document.querySelector(`#item-container-${this.list_id}`)
+        let itemCard = document.createElement('div')
+        //console.log(itemContainer)
+        itemCard.id = this.id
+        //itemCard.classList.add = "item-card"
+        itemCard.innerHTML += this.itemHTML()
+        itemContainer.appendChild(itemCard)
+    
+    }
+    
     itemHTML() {
         return `
                 <p> Gift: ${this.item_name} </p>
@@ -28,28 +39,18 @@ class Item {
             
    }
 
-    displayItem() {
-
-        let itemContainer = document.getElementById(`item-container-${this.list_id}`)
-        let itemCard = document.createElement('div')
-        itemCard.id = this.id
-        itemCard.innerHTML += this.itemHTML()
-        itemContainer.appendChild(itemCard)
-    
-    }
-    
-    
 
 
 
     
+
 
     
 }
 //wipe everything off the page
 //show the new item objects
 // loadFormItems() {
-    //     const itemForm = document.getElementById("item-container")
+    //     const itemForm = document.getElementById("list-spot")
 
     //     itemForm.addEventListener("submit", function(e){
     //         e.preventDefault()
