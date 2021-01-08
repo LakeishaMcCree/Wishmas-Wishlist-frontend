@@ -30,7 +30,7 @@ class List {
                 <div class="row">
                     <div class="col s12 m7">
                         <form id="wishmas-wishlist">
-                            <div class="card horizontal black">
+                            <div class="card horizontal red darken-1">
                             <div class="card-content white-text" id="${this.id}">
                                     <span class="card-title ">${this.name}</span>
                                     <p>${this.list_notes}</p>
@@ -51,13 +51,12 @@ class List {
     //dataset.id- refers to an id, creating and displaying my list
 
 
-    deleteList() {
-        const id = document.getElementById(`${this.id}`)
-        fetch (`http://localhost:3000/lists/${this.id}`, {
+    deleteList(){
+        fetch(`http://localhost:3000/lists/${this.id}`, {
             method: 'DELETE'
         })
         .then(() => {
-            document.getElementById('list-spot').removeChild(id)
+            document.getElementById(`${this.id}`).parentNode.removeChild(document.getElementById(`${this.id}`))
         })
     }
 

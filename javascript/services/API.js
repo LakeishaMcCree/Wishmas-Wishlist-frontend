@@ -1,6 +1,5 @@
 class API {
     //class level method that is fetching all of our lists then creating a new list object then creating a new list object for all of our lists.
-    // static (class level) function that is going to be a fetch request to the back end to the index that will load in all my lists
 
     static loadLists() {
         fetch("http://localhost:3000/lists") //read fetch
@@ -15,11 +14,9 @@ class API {
 
     static loadFormListener(){
         const listForm = document.getElementById("add-item-form")
-      
         listForm.addEventListener("submit", function(e) {
             e.preventDefault()
             const listData = listInfo(e)
-            //debugger
             fetch("http://localhost:3000/lists", {
                 method: 'POST',
                 headers: {
@@ -56,13 +53,15 @@ class API {
             document.querySelector('#link').value = ""
             document.querySelector('#image').value = "" 
         }
+    
+
+        
+
     }
 } 
+
+
+
+
     //posts form to the dom and grabs the attribute inputs, clears the form after submission
     //takes an event, used as callback for the submit of the form
-
-
-    
-    
-    
-    
